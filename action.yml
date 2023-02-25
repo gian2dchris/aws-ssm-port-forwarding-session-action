@@ -1,13 +1,21 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: 'SSM Port Forwarding Session'
+description: 'Start an SSM Port Forwarding Session in a github workflow'
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  target-id:
+    description: 'Start session on instance'
     required: true
-    default: '1000'
+  portNumber:
+    description: 'port number to forward to'
+    required: true
+    default: '8888'
+  localPortNumber:
+    description: 'local port number'
+    required: true
+    default: '8888'
 outputs:
-  time: # output will be available to future steps
-    description: 'The current time after waiting'
+  session-id:
+    description: 'ssm session id'
 runs:
   using: 'node16'
-  main: 'dist/index.js'
+  main: 'index.js'
+  post: 'cleanup.js'
